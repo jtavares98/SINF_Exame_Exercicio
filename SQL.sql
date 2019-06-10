@@ -1,14 +1,54 @@
 1.
 
+SELECT id,nome from candidato join autarquia using (cod) 
+WHERE designacao='Lisboa'
+
 2.
+
+SELECT COUNT(*) from candidato join partido using (sigla)
+where partido.nome='Partido da Direita' AND votos>1
 
 3.
 
+SELECT partido.nome, AVG(idade) from candidato join partido using (sigla)
+GROUP BY partido.nome
+
 4.
+
+SELECT partido.nome from candidato join partido using(sigla) 
+group by partido.nome having avg(idade)>45
 
 5.
 
+SELECT cod, designacao FROM
+
+(SELECT candidato.cod, partido.nome
+FROM candidato JOIN partido using (sigla)
+WHERE partido.nome='Partido do Meio') as a1
+
+RIGHT JOIN autarquia using(cod)
+WHERE a1 is NULL
+
 6.
+
+select designacao, count(ne) from
+eleitor join autarquia using (cod)
+where votou='F'
+group by designacao
+
+UNION
+
+select designacao, 0 from
+eleitor right join autarquia using (cod)
+where ne is null
+group by designacao
+
+UNION
+
+select designacao, 0 from
+eleitor right join autarquia using (cod)
+where  votou != 'F' AND brancos!=0 
+group by designacao
 
 7.
 
