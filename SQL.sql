@@ -31,9 +31,10 @@ WHERE a1 is NULL
 
 6.
 
+
 select designacao, count(ne) from
-eleitor join autarquia using (cod)
-where votou='F'
+eleitor right join autarquia
+ON eleitor.cod = autarquia.cod AND eleitor.votou = 'false'
 group by designacao
 
 UNION
@@ -43,12 +44,6 @@ eleitor right join autarquia using (cod)
 where ne is null
 group by designacao
 
-UNION
-
-select designacao, 0 from
-eleitor right join autarquia using (cod)
-where  votou != 'F' AND brancos!=0 
-group by designacao
 
 7.
 
