@@ -29,6 +29,16 @@ WHERE partido.nome='Partido do Meio') as a1
 RIGHT JOIN autarquia using(cod)
 WHERE a1 is NULL
 
+-ou-
+
+select cod, designacao from
+
+(SELECT candidato.cod, partido.nome from
+ candidato right join partido on partido.nome='Partido do Meio') as a1
+ 
+ right join autarquia using (cod)
+ where nome is null
+
 6.
 
 
